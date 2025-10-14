@@ -1,14 +1,10 @@
 import { useFormik } from "formik";
-
-const validate = (values) => {
-  const errors = {};
-  if (!values.name) errors.name = "Required";
-  if (values.name.length < 2) errors.name = "2 letters minimum";
-  if (!values.email) errors.email = "Required";
-  if (/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w)$/.test(values.email))
-    errors.email = "Wrong email format";
-  return errors;
-};
+import {
+  object as YUPObject,
+  string as YUPString,
+  number as YUPNumber,
+  boolean as YUPBoolean,
+} from "yup";
 
 const Form = () => {
   const formik = useFormik({
@@ -20,7 +16,16 @@ const Form = () => {
       text: "",
       terms: false,
     },
-    validate,
+    validationSchema: YUPObject({
+      name: YUPString().min(2, "2 letters minimum").required("Required"),
+      email: YUPString().email("Wrong email format").required("Required"),
+      amount: YUPNumber().required("Required"),
+      currency: YUPString().required("Required"),
+      text: YUPString(),
+      terms: YUPBoolean()
+        .required("Required")
+        .oneOf([true], "Must be confirmed"),
+    }),
   });
 
   return (
@@ -55,6 +60,7 @@ const Form = () => {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
       />
+      {formik.errors.amount && formik.touched.amount && formik.errors.amount}
       <label htmlFor="currency">Валюта</label>
       <select
         id="currency"
@@ -68,6 +74,9 @@ const Form = () => {
         <option value="UAH">UAH</option>
         <option value="RUB">RUB</option>
       </select>
+      {formik.errors.currency &&
+        formik.touched.currency &&
+        formik.errors.currency}
       <label htmlFor="text">Ваше сообщение</label>
       <textarea
         id="text"
@@ -76,6 +85,7 @@ const Form = () => {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
       />
+      {formik.errors.text && formik.touched.text && formik.errors.text}
       <label className="checkbox">
         <input
           name="terms"
@@ -86,6 +96,7 @@ const Form = () => {
         />
         Соглашаетесь с политикой конфиденциальности?
       </label>
+      {formik.errors.terms && formik.touched.terms && formik.errors.terms}
       <button type="submit">Отправить</button>
     </form>
   );
