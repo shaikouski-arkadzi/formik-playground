@@ -5,6 +5,7 @@ import {
   number as YUPNumber,
   boolean as YUPBoolean,
 } from "yup";
+import TextInput from "./TextInput";
 
 const FormSecond = () => {
   return (
@@ -30,18 +31,11 @@ const FormSecond = () => {
     >
       <Form className="form">
         <h2>Отправить пожертвование</h2>
+        <TextInput label="Ваше имя" id="name" name="name" type="text" />
 
-        <label htmlFor="name">Ваше имя</label>
-        <Field id="name" name="name" type="text" />
-        <ErrorMessage className="error" name="name" />
+        <TextInput label="Ваша почта" id="email" name="email" type="text" />
 
-        <label htmlFor="email">Ваша почта</label>
-        <Field id="email" name="email" />
-        <ErrorMessage className="error" name="email" />
-
-        <label htmlFor="amount">Количество</label>
-        <Field id="amount" name="amount" type="number" />
-        <ErrorMessage className="error" name="amount" />
+        <TextInput label="Количество" id="amount" name="amount" type="number" />
 
         <label htmlFor="currency">Валюта</label>
         <Field id="currency" name="currency" as="select">
