@@ -36,9 +36,7 @@ const Form = () => {
         id="name"
         name="name"
         type="text"
-        value={formik.values.name}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
+        {...formik.getFieldProps("name")}
       />
       {formik.errors.name && formik.touched.name && formik.errors.name}
       <label htmlFor="email">Ваша почта</label>
@@ -46,9 +44,7 @@ const Form = () => {
         id="email"
         name="email"
         type="email"
-        value={formik.values.email}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
+        {...formik.getFieldProps("email")}
       />
       {formik.errors.email && formik.touched.email && formik.errors.email}
       <label htmlFor="amount">Количество</label>
@@ -56,18 +52,14 @@ const Form = () => {
         id="amount"
         name="amount"
         type="number"
-        value={formik.values.amount}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
+        {...formik.getFieldProps("amount")}
       />
       {formik.errors.amount && formik.touched.amount && formik.errors.amount}
       <label htmlFor="currency">Валюта</label>
       <select
         id="currency"
         name="currency"
-        value={formik.values.currency}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
+        {...formik.getFieldProps("currency")}
       >
         <option value="">Выберите валюту</option>
         <option value="USD">USD</option>
@@ -78,21 +70,13 @@ const Form = () => {
         formik.touched.currency &&
         formik.errors.currency}
       <label htmlFor="text">Ваше сообщение</label>
-      <textarea
-        id="text"
-        name="text"
-        value={formik.values.text}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-      />
+      <textarea id="text" name="text" {...formik.getFieldProps("text")} />
       {formik.errors.text && formik.touched.text && formik.errors.text}
       <label className="checkbox">
         <input
           name="terms"
           type="checkbox"
-          value={formik.values.terms}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
+          {...formik.getFieldProps("terms")}
         />
         Соглашаетесь с политикой конфиденциальности?
       </label>
